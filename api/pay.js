@@ -28,6 +28,10 @@ export default async function handler(req, res) {
     [process.env.PRODUCT_3_ID]: { 
       amount: parseInt(process.env.PRODUCT_3_AMOUNT), 
       description: process.env.PRODUCT_3_DESCRIPTION 
+    },
+    [process.env.PRODUCT_4_ID]: { 
+      amount: parseInt(process.env.PRODUCT_4_AMOUNT), 
+      description: process.env.PRODUCT_4_DESCRIPTION 
     }
   };
 
