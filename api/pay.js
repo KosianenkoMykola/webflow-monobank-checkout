@@ -17,19 +17,32 @@ export default async function handler(req, res) {
   }
 
   const products = {
-    'product-id-1': { amount: 2650000, description: 'Налобний освітлювач DKH-50' },
-    'product-id-2': { amount: 5880000, description: 'Налобний освітлювач DKH-60 + DKT-3A + DKL-7' },
-    'product-id-3': { amount: 6300000, description: 'Налобний освітлювач DKH-60 + DKT-4A + DKL-7' }
+    [process.env.PRODUCT_1_ID]: { 
+      amount: parseInt(process.env.PRODUCT_1_AMOUNT), 
+      description: process.env.PRODUCT_1_DESCRIPTION 
+    },
+    [process.env.PRODUCT_2_ID]: { 
+      amount: parseInt(process.env.PRODUCT_2_AMOUNT), 
+      description: process.env.PRODUCT_2_DESCRIPTION 
+    },
+    [process.env.PRODUCT_3_ID]: { 
+      amount: parseInt(process.env.PRODUCT_3_AMOUNT), 
+      description: process.env.PRODUCT_3_DESCRIPTION 
+    }
   };
 
   const product = products[productId];
   if (!product) return res.status(400).json({ error: 'Invalid product ID' });
 
   const MONOBANK_TOKEN = process.env.MONOBANK_TOKEN;
-  const SUCCESS_URL = process.env.SUCCESS_URL || 'https://kim-5d61ce.webflow.io/success';
+  const SUCCESS_URL = process.env.SUCCESS_URL;
 
   if (!MONOBANK_TOKEN) {
     return res.status(500).json({ error: 'Monobank token is not configured' });
+  }
+
+  if (!SUCCESS_URL) {
+    return res.status(500).json({ error: 'Success URL is not configured' });
   }
 
   try {
