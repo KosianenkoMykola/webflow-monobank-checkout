@@ -1,10 +1,17 @@
-
 {
   "version": 2,
   "builds": [
     { "src": "api/pay.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/pay", "dest": "/api/pay.js" }
+    { 
+      "src": "/api/pay", 
+      "dest": "/api/pay.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
+    }
   ]
 }
